@@ -10,6 +10,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.net.InetAddress;
 
@@ -25,10 +26,8 @@ public class ElasticsearchConfig implements DisposableBean {
 
     @Value("${elasticsearch.cluster.name}")
     private String clusterName;
-    @Value("${elasticsearch.host}")
-    private String host;
-    @Value("${elasticsearch.port}")
-    private String port;
+    @Value("${elasticsearch.cluster-nodes}")
+    private String clusterNodes;
 
     @Bean
     public TransportClient getTransportClient() throws Exception {
@@ -36,8 +35,16 @@ public class ElasticsearchConfig implements DisposableBean {
                 .put("cluster.name", clusterName)
                 .put("client.transport.sniff", true)
                 .build();
-        transportClient = new PreBuiltTransportClient(settings)
-                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(host), Integer.valueOf(port)));
+        transportClient = new PreBuiltTransportClient(settings);
+        if (StringUtils.hasText(clusterNodes)) {
+            String[] clusterNodeArr = clusterNodes.split(",");
+            for (String clusterNode : clusterNodeArr) {
+                String[] ipAndPortSocketArr = clusterNode.split(":");
+                String ip = ipAndPortSocketArr[0];
+                int port = Integer.valueOf(ipAndPortSocketArr[1]);
+                transportClient.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(ip), port));
+            }
+        }
         logger.info("elasticsearch transportClient 连接成功");
         return transportClient;
     }
