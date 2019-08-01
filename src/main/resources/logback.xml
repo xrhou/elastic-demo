@@ -13,7 +13,7 @@
 	        <charset>UTF-8</charset> <!-- 此处设置字符集 -->  
 	    </encoder>
 	    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
-	      	<fileNamePattern>${logPath}/kafka_hbase_%d{yyyyMMdd}.log</fileNamePattern>
+	      	<fileNamePattern>${logPath}/kafka_%d{yyyyMMdd}.log</fileNamePattern>
 	    </rollingPolicy>  
 	    <prudent>true</prudent>   
   	</appender>  
