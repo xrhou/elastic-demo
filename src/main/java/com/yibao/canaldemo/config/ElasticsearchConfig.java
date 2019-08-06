@@ -28,11 +28,14 @@ public class ElasticsearchConfig implements DisposableBean {
     private String clusterName;
     @Value("${elasticsearch.cluster-nodes}")
     private String clusterNodes;
+    @Value("${spring.data.elasticsearch.xpack-security-user}")
+    private String xpackSecurityUser;
 
     @Bean
     public TransportClient getTransportClient() throws Exception {
         Settings settings = Settings.builder()
                 .put("cluster.name", clusterName)
+                //.put("xpack.security.user", xpackSecurityUser)
                 .put("client.transport.sniff", true)
                 .build();
         transportClient = new PreBuiltTransportClient(settings);
