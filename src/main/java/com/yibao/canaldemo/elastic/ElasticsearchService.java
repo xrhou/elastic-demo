@@ -1,6 +1,5 @@
 package com.yibao.canaldemo.elastic;
 
-import java.util.List;
 import java.util.Map;
 
 /**

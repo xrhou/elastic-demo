@@ -3,7 +3,7 @@ package com.yibao.canaldemo.config;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.transport.client.PreBuiltTransportClient;
+import org.elasticsearch.xpack.client.PreBuiltXPackTransportClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -22,7 +22,7 @@ import java.net.InetAddress;
 public class ElasticsearchConfig implements DisposableBean {
     private static final Logger logger = LoggerFactory.getLogger(ElasticsearchConfig.class);
 
-    private TransportClient transportClient;
+    private PreBuiltXPackTransportClient transportClient;
 
     @Value("${elasticsearch.cluster.name}")
     private String clusterName;
@@ -32,13 +32,13 @@ public class ElasticsearchConfig implements DisposableBean {
     private String xpackSecurityUser;
 
     @Bean
-    public TransportClient getTransportClient() throws Exception {
-        Settings settings = Settings.builder()
-                .put("cluster.name", clusterName)
-                //.put("xpack.security.user", xpackSecurityUser)
-                .put("client.transport.sniff", true)
-                .build();
-        transportClient = new PreBuiltTransportClient(settings);
+    public TransportClient transportClient() throws Exception {
+        transportClient = new PreBuiltXPackTransportClient(
+                Settings.builder()
+                        .put("cluster.name", clusterName)
+                        .put("xpack.security.user", xpackSecurityUser)
+                        .put("client.transport.sniff", false)
+                        .build());
         if (StringUtils.hasText(clusterNodes)) {
             String[] clusterNodeArr = clusterNodes.split(",");
             for (String clusterNode : clusterNodeArr) {

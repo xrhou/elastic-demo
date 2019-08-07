@@ -7,8 +7,13 @@ import com.yibao.canaldemo.elastic.ElasticsearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
-import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.action.index.IndexRequestBuilder;
+import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.client.Client;
+import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.rest.RestStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -23,7 +28,7 @@ import java.util.Map;
 public class ElasticsearchServiceImpl implements ElasticsearchService {
 
     @Autowired
-    private TransportClient transportClient;
+    private ElasticsearchTemplate elasticsearchTemplate;
 
     @Resource
     private PatientDoctorRelationMapper patientDoctorRelationMapper;
@@ -34,15 +39,25 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
         log.info("开始查询数据库patientDoctorRelation->id=" + Integer.valueOf(id));
         PatientDoctorRelationDO patientDoctorRelation = patientDoctorRelationMapper.selectById(Integer.valueOf(id));
         log.info("数据库查询patientDoctorRelation->data:{}", JSON.toJSONString(patientDoctorRelation));
-        transportClient.prepareIndex(index, type, id).setSource(dataMap).get();
+        Client transportClient = elasticsearchTemplate.getClient();
+        IndexRequestBuilder indexRequestBuilder = transportClient.prepareIndex(index, type, id)
+                .setSource(JSON.toJSONString(dataMap), XContentType.JSON);
+        IndexResponse response = indexRequestBuilder.execute().actionGet();
+        try {
+            if (response.status().equals(RestStatus.OK)) {
+                log.info("insert elasticsearch data success");
+            }
+        } catch (Exception e) {
+            log.error("insert elasticsearch data  fail", e);
+        }
         log.info("落数据到Elasticsearch-patientDoctorRelation->es-data:{}", JSON.toJSONString(dataMap));
         log.info("=============================================================");
     }
 
     @Override
     public void batchInsertById(String index, String type, Map<String, Map<String, Object>> idDataMap) {
-        BulkRequestBuilder bulkRequestBuilder = transportClient.prepareBulk();
-        idDataMap.forEach((id, dataMap) -> bulkRequestBuilder.add(transportClient.prepareIndex(index, type, id).setSource(dataMap)));
+        BulkRequestBuilder bulkRequestBuilder = elasticsearchTemplate.getClient().prepareBulk();
+        idDataMap.forEach((id, dataMap) -> bulkRequestBuilder.add(elasticsearchTemplate.getClient().prepareIndex(index, type, id).setSource(dataMap)));
         try {
             BulkResponse bulkResponse = bulkRequestBuilder.execute().get();
             if (bulkResponse.hasFailures()) {
@@ -60,6 +75,6 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
 
     @Override
     public void deleteById(String index, String type, String id) {
-        transportClient.prepareDelete(index, type, id).get();
+        elasticsearchTemplate.getClient().prepareDelete(index, type, id).get();
     }
 }

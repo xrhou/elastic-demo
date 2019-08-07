@@ -27,6 +27,7 @@ public class CanalKafkaApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         logger.info("## started the CanalKafkaApplication ##");
+        System.setProperty("es.set.netty.runtime.available.processors", "false");
         SpringApplication.run(CanalKafkaApplication.class, args);
     }
 }
