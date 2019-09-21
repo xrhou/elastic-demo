@@ -1,3 +1,4 @@
+# 基于阿里的Canal配合Kafka实现MySQL binlog 新增修改数据实时写入Elasticsearch
 # canal-kafka-elasticsearch
 
 #### 介绍
