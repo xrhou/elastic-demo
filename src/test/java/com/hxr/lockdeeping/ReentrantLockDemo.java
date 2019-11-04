@@ -57,7 +57,7 @@ class Phone implements Runnable {
         sendEmail();
     }
 
-    public synchronized void sendEmail() throws Exception {
+    public synchronized void sendEmail() {
         System.out.println(Thread.currentThread().getId() + "-" + Thread.currentThread().getName() + "\t ####invoked sendEmail");
     }
 
