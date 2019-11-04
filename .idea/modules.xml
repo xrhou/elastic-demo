@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/canal-kafka-elasticsearch.iml" filepath="$PROJECT_DIR$/.idea/canal-kafka-elasticsearch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/elastic-demo.iml" filepath="$PROJECT_DIR$/elastic-demo.iml" />
     </modules>
   </component>
 </project>
