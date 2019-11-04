@@ -1,7 +1,6 @@
 package com.hxr.executespooldeeping;
 
 import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -21,12 +20,11 @@ import java.util.concurrent.Executors;
  */
 public class CyclicBarrierDemo1 {
 
-
     //所有子线程全部到达屏障后执行的任务
     private static CyclicBarrier cyclicBarrier = new CyclicBarrier(2, new Runnable() {
         @Override
         public void run() {
-            //子线程全部执行完毕后要执行的任务
+            //子线程全部执行完毕后才执行下面的代码
             System.out.println(Thread.currentThread() + " task1 merge result");
         }
     });
