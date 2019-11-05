@@ -12,7 +12,6 @@ import java.util.concurrent.PriorityBlockingQueue;
 public class PriorityBlockingQueueTest {
 
     static class Task implements Comparable<Task> {
-
         private int priority = 0;
         private String taskName;
 
@@ -56,7 +55,6 @@ public class PriorityBlockingQueueTest {
             task.setTaskName("taskName" + i);
             priorityQueue.offer(task);
         }
-
 
         //取出任务待执行
         while (!priorityQueue.isEmpty()) {

@@ -1,10 +1,11 @@
-package com.hxr.executespooldeeping;
+package com.hxr.threaddeeping;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 使用CountDownLatch模拟斗地主的三个是否都进入房间
+ * 使用CountDownLatch模拟:
+ * 斗地主的三个是否都进入房间
  *
  * @author houxiurong
  * @date 2019-09-18

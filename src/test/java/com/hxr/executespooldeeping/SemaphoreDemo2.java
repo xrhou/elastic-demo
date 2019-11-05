@@ -18,9 +18,6 @@ public class SemaphoreDemo2 {
     public static void main(String[] args) throws InterruptedException {
         //定义一个固定大小的线程池
         ExecutorService executorService = Executors.newFixedThreadPool(2);
-
-        StringBuilder stringBuilder=new StringBuilder();
-        StringBuffer stringBuffer=new StringBuffer();
         System.out.println("main thread start");
 
         //将线程A放入线程池

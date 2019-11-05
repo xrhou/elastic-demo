@@ -4,7 +4,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * 两个独占锁(takeLock,putLock)的有界 单向 链表 实现的 阻塞队列
- * 队列最大长度为:(2>>31-1)
+ * 有界队列最大长度为:(2>>31-1)=21 4748 3647(21亿...)
  * -- offer 队尾插入一个元素,为空则插入,队列满了则丢弃当前元素返回false,插入元素为null则返回NPE
  * -- put 队尾插入一个元素,队列已满则 阻塞当前线程 直到队列有空闲插入成功后返回, 终断后返回 InterruptedException
  * <p>
