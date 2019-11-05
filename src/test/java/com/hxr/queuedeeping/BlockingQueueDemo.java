@@ -21,7 +21,6 @@ import java.util.List;
 public class BlockingQueueDemo {
 
     public static void main(String[] args) {
-
         List list=null;
         System.out.println(Integer.MAX_VALUE);
     }

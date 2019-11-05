@@ -1,4 +1,4 @@
-package com.hxr.queuedeeping;
+package com.hxr.lockdeeping;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -18,9 +18,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ProdConsTraditionDemo {
 
     public static void main(String[] args) {
-
         ShardData shardData = new ShardData();
-
         new Thread(() -> {
             for (int i = 1; i <= 5; i++) {
                 shardData.increment();
