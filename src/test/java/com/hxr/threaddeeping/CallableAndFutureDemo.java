@@ -6,18 +6,17 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
 /**
+ * CallableAndFuture
+ *
  * @author houxiurong
  * @date 2019-09-04
  */
 public class CallableAndFutureDemo {
 
     public static void main(String[] args) {
-        Callable<Integer> callable = new Callable<Integer>() {
-            @Override
-            public Integer call() throws Exception {
-                Thread.sleep(3000);
-                return new Random().nextInt(100);
-            }
+        Callable<Integer> callable = () -> {
+            Thread.sleep(3000);
+            return new Random().nextInt(100);
         };
 
         FutureTask<Integer> futureTask = new FutureTask<>(callable);

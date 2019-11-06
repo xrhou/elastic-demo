@@ -31,6 +31,9 @@ public class ImplCallable implements Callable<Integer> {
 
         //获取返回值
         System.out.println("是否结束=" + futureTask.isDone());
+        while (!futureTask.isDone()){
+
+        }
         Integer result = futureTask.get();
         System.out.println(result);
         System.out.println("是否结束=" + futureTask.isDone());

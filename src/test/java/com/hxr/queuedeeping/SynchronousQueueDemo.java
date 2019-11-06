@@ -5,7 +5,7 @@ import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
- * SynchronousQueue同步队列 没有容量-同步队列生产一个消费一个
+ * SynchronousQueue同步队列 没有容量-同步队列生产一个,消费一个。
  * 与其他BlockingQueue不同,SynchronousQueue是一个不存储元素的BlockingQueue
  * 每一个 put 操作必须要等待一个 take 操作,否则不能继续添加元素,反之亦然
  *

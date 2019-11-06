@@ -46,7 +46,7 @@ public class DeathLock1 {
     }
 
     /**
-     * $jps
+     * $jps -l
      * 47460 DeathLock
      * $jstack -l 47460
      *"Thread-1" #11 prio=5 os_prio=31 tid=0x00007ff4f1a83800 nid=0x4103 waiting on condition [0x0000700002266000]

@@ -20,7 +20,7 @@ public class FIFOMutex {
         Thread current = Thread.currentThread();
         waiters.add(current);
 
-        //只有队手的线程才能获取锁
+        //只有队首的线程才能获取锁
         // Block while not first in queue or cannot acquire lock
         while (waiters.peek() != current ||
                 !locked.compareAndSet(false, true)) {

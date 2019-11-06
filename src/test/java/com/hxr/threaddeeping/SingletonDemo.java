@@ -10,6 +10,7 @@ import java.util.Queue;
  * @date 2019-09-06
  */
 public class SingletonDemo {
+
     private static volatile SingletonDemo instance;
 
     /**
@@ -34,7 +35,5 @@ public class SingletonDemo {
         System.out.println(queue.poll());
         System.out.println(queue.remove());
         System.out.println(queue.size());
-
-
     }
 }

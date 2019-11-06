@@ -17,9 +17,7 @@ public class CyclicBarrierDemo {
         /**
          * 收集7颗龙珠召唤神龙
          */
-        CyclicBarrier cyclicBarrier = new CyclicBarrier(7, () -> {
-            System.out.println("==收集龙珠召唤神龙==");
-        });
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(7, new RunnableThread());
 
         for (int i = 1; i <= 7; i++) {
             final int tempInt = i;
@@ -33,5 +31,13 @@ public class CyclicBarrierDemo {
             }, String.valueOf(i)).start();
         }
 
+    }
+}
+
+class RunnableThread implements java.lang.Runnable {
+
+    @Override
+    public void run() {
+        System.out.println("==收集龙珠召唤神龙==");
     }
 }

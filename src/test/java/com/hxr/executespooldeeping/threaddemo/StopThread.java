@@ -2,7 +2,8 @@ package com.hxr.executespooldeeping.threaddemo;
 
 /**
  * 但如果把两句注释的语句加上，一开始lock被t0持有，
- * 一秒后t0使用了stop结束线程，这个时候t0将会释放lock，所以t1持有了lock，此时，t0继续尝试操作，就会抛出ThreadDeath，结果如下
+ * 一秒后t0使用了stop结束线程，这个时候t0将会释放lock，所以t1持有了lock，
+ * 此时，t0继续尝试操作，就会抛出ThreadDeath，结果如下
  *
  * @author houxiurong
  * @date 2019-10-07
